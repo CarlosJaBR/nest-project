@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException, Param, ParseIntPipe } from '@nestjs/common';
 import {v4 as uuid} from 'uuid';
+import { UpdateCarDto } from './dto/update-car.dto';
 @Injectable()
 export class CarsService {
 
@@ -20,7 +21,7 @@ export class CarsService {
             model:"Barreto",
         }
     ]
-
+     
     findAll(): Car[] {
         return this.cars;
     }
@@ -38,6 +39,18 @@ export class CarsService {
             ...createCarDto
         }
         this.cars.push(car);
+        return car;
+    }
+    
+    update(id:string,carUpdate:UpdateCarDto):any{
+        let car:Car = this.findOneById(id);
+        if(carUpdate.id && carUpdate.id != id)
+            throw new NotFoundException(`Car with id ${id} not found`);
+        car = {
+            ...car,
+            ...carUpdate
+        }
+        this.cars = this.cars.map(c => c.id == id ? car : c);
         return car;
     }
 }
