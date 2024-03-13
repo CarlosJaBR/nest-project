@@ -17,7 +17,7 @@ export class CarsController {
     }
     @Post()
     @HttpCode(201)
-    @UsePipes(ValidationPipe)
+    //@UsePipes(ValidationPipe)
     create(@Body() car:CreateCarDto): any {
         console.log(car);
         return this.carService.create(car);

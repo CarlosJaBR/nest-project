@@ -3,7 +3,7 @@ import {v4 as uuid} from 'uuid';
 @Injectable()
 export class CarsService {
 
-    private cars = [
+    private cars:Car[] = [
         {
             id:uuid(),
             brand:"Toyota",
@@ -21,18 +21,18 @@ export class CarsService {
         }
     ]
 
-    findAll(): any {
+    findAll(): Car[] {
         return this.cars;
     }
 
-    findOneById(id:string): any {
+    findOneById(id:string): Car {
         const car = this.cars.find(car => car.id == id);
         if(!car)
             throw new NotFoundException(`Car with id ${id} not found`);
         return car;
     }
 
-    create(createCarDto: any): any {
+    create(createCarDto: any): Car {
         const car = {
             id:uuid(),
             ...createCarDto
