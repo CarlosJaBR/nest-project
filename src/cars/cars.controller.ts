@@ -1,5 +1,6 @@
-import { Body, Controller,Delete, Get,Put, HttpCode, Param, ParseIntPipe, Post, ParseUUIDPipe } from '@nestjs/common';
+import { Body, Controller,Delete, Get,Put, HttpCode, Param, ParseIntPipe, Post, ParseUUIDPipe, UsePipes,ValidationPipe } from '@nestjs/common';
 import { CarsService } from './cars.service';
+import { CreateCarDto } from './dto/create-car.dto';
 
 @Controller('cars')
 export class CarsController {
@@ -16,9 +17,10 @@ export class CarsController {
     }
     @Post()
     @HttpCode(201)
-    create(@Body() car:CreateCarDto): string {
+    @UsePipes(ValidationPipe)
+    create(@Body() car:CreateCarDto): any {
         console.log(car);
-        return car;
+        return this.carService.create(car);
     }
     @Put()
     @HttpCode(201)

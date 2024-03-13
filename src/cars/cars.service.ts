@@ -31,4 +31,13 @@ export class CarsService {
             throw new NotFoundException(`Car with id ${id} not found`);
         return car;
     }
+
+    create(createCarDto: any): any {
+        const car = {
+            id:uuid(),
+            ...createCarDto
+        }
+        this.cars.push(car);
+        return car;
+    }
 }
