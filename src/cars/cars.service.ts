@@ -53,4 +53,11 @@ export class CarsService {
         this.cars = this.cars.map(c => c.id == id ? car : c);
         return car;
     }
+
+    delete(id:string):any{
+        let car:Car = this.findOneById(id);
+        if(!car)
+            throw new NotFoundException(`Car with id ${id} not found`);
+        return this.cars = this.cars.filter(car => car.id !== id);
+    }
 }

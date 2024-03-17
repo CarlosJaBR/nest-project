@@ -29,11 +29,11 @@ export class CarsController {
         console.log(body);
         return this.carService.update(id,body);
     }
-    @Delete()
+    @Delete(":id")
     @HttpCode(201)
     delete(@Param("id", ParseUUIDPipe) id:string): any {
         console.log(id);
-        return id;
+        return this.carService.delete(id);
     }
     @Get("test")
     test(): string {
