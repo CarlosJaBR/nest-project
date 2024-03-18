@@ -1,6 +1,6 @@
 import { IsOptional, IsString, IsUUID } from "class-validator";
 
-export class UpdateBranchDto{
+export class UpdateBrandDto{
     @IsOptional()
     @IsUUID()
     readonly id?:string;

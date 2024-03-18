@@ -1,7 +1,7 @@
 import { IsString } from "class-validator";
 
 
-export class CreateBranchDto {
+export class CreateBrandDto {
     @IsString()
     readonly name: string;
 }
