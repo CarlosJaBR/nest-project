@@ -6,25 +6,7 @@ import { UpdateBrandDto } from './dto/update-brand.dto';
 @Injectable()
 export class BrandsService {
 
-    private brands: Brand[] = [
-        {
-            id:uuid(),
-            name:"Toyota"
-        },
-        {
-            id:uuid(),
-            name:"Honda"
-        },
-        {
-            id:uuid(),
-            name:"Barreto"
-        },
-        {
-            id:uuid(),
-            name: "Hyundai"
-        }
-    
-    ]
+    private brands: Brand[] = []
     
     findAll(): Brand[] {
         return this.brands;
@@ -37,25 +19,25 @@ export class BrandsService {
     }
 
     create(createBrandDto: CreateBrandDto): Brand {
+        const {name} = createBrandDto
         const brand = {
+            name,
             id:uuid(),
-            ...createBrandDto
+            createdAt: new Date().getTime()            
         }
         this.brands.push(brand);
         return brand;
     }
 
-    update(id:string,brandUpdate:UpdateBrandDto):Brand{
-        let brand:Brand = this.findById(id);
-        if(brandUpdate.id && brandUpdate.id != id)
-            throw new NotFoundException(`Brand with id ${id} not found`);
+    update(id:string,brandUpdate:UpdateBrandDto){
 
-        brand = {
-            ...brand,
-            ...brandUpdate
-        }
-        this.brands = this.brands.map(c => c.id == id ? brand : c);
-        return brand;
+        let brandDB = this.findById(id);
+        this.brands = this.brands.map(brand => {
+            if(brand.id === id){
+                brandDB = {...brandDB, ...brandUpdate};
+            }
+            return brandDB;
+        });
     }
 
     delete(id:string){
