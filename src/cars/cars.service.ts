@@ -2,26 +2,11 @@ import { Injectable, NotFoundException, Param, ParseIntPipe } from '@nestjs/comm
 import {v4 as uuid} from 'uuid';
 import { UpdateCarDto } from './dto/update-car.dto';
 import { CreateCarDto } from './dto/create-car.dto';
+import { Car } from './interface/car.interface';
 @Injectable()
 export class CarsService {
 
-    private cars:Car[] = [
-        {
-            id:uuid(),
-            brand:"Toyota",
-            model:"Corolla",
-        },
-        {
-            id:uuid(),
-            brand:"Toyota",
-            model:"Camry",
-        },
-        {
-            id:uuid(),
-            brand:"Honda",
-            model:"Barreto",
-        }
-    ]
+    private cars:Car[] = []
      
     findAll(): Car[] {
         return this.cars;
@@ -60,5 +45,9 @@ export class CarsService {
         if(!car)
             throw new NotFoundException(`Car with id ${id} not found`);
         return this.cars = this.cars.filter(car => car.id !== id);
+    }
+
+    fillCarsWithSeedData(cars:Car[]):void{
+        this.cars = cars;
     }
 }
