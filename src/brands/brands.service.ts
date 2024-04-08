@@ -3,9 +3,17 @@ import {v4 as uuid} from 'uuid';
 import { CreateBrandDto } from './dto/create-brand.dto';
 import { UpdateBrandDto } from './dto/update-brand.dto';
 import {Brand} from './entities/brand.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class BrandsService {
+
+
+    constructor(
+        @InjectRepository(Brand)
+        private readonly brandRepository: Repository<Brand>
+    ){}
 
     private brands: Brand[] = []
     
@@ -19,14 +27,10 @@ export class BrandsService {
         return brand;
     }
 
-    create(createBrandDto: CreateBrandDto): Brand {
-        const {name} = createBrandDto
-        const brand = {
-            name,
-            id:uuid(),
-            createdAt: new Date().getTime()            
-        }
-        this.brands.push(brand);
+    async create(createBrandDto: CreateBrandDto) {
+        
+        const brand = this.brandRepository.create(createBrandDto);
+        await this.brandRepository.save(brand); 
         return brand;
     }
 

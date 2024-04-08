@@ -12,6 +12,7 @@ services:
     container_name: car_dealership
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
+
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin4_container

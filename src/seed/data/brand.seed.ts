@@ -2,6 +2,7 @@ import {v4 as uuidv4} from 'uuid';
 import {Brand} from '../../brands/entities/brand.entity';
 
 export const brandSeed: Brand[] = [
+    /*
     {
         id:uuidv4(),
         name:"Toyota",
@@ -17,5 +18,5 @@ export const brandSeed: Brand[] = [
         name:"Chevrolet",
         createdAt: new Date().getTime(),
     }
-    
+    */
 ]
